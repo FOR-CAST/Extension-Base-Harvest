@@ -49,7 +49,7 @@ Source: {#BuildDir}\Landis.Extension.BaseHarvest-v4.dll; DestDir: {#ExtDir}; Fla
 
 ; Requisite auxiliary libraries
 ; NB. These libraries are used by other extensions and thus are never uninstalled.
-Source: {#BuildDir}\Landis.Library.HarvestManagement-v2.dll; DestDir: {#ExtDir}; Flags: uninsneveruninstall replacesameversion
+Source: {#BuildDir}\Landis.Library.HarvestManagement-v3.dll; DestDir: {#ExtDir}; Flags: uninsneveruninstall replacesameversion
 Source: {#BuildDir}\Landis.Library.SiteHarvest-v2.dll; DestDir: {#ExtDir}; Flags: uninsneveruninstall replacesameversion
 Source: {#BuildDir}\Landis.Library.Metadata-v2.dll; DestDir: {#ExtDir}; Flags: uninsneveruninstall replacesameversion
 Source: {#BuildDir}\Landis.Library.Succession-v6.dll; DestDir: {#ExtDir}; Flags: uninsneveruninstall replacesameversion
