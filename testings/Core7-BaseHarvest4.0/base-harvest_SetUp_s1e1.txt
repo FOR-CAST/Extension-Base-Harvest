@@ -15,6 +15,15 @@ Stands     		./base-harvest_Stand_s1e1.gis
 >> HARVESTING PRESCRIPTIONS
 >> -------------------------
 
+>>------------------------------------
+Prescription Salvage
+
+    	StandRanking 	TimeSinceDisturbance
+	TimeSinceLastFire	5
+    	SiteSelection 	Complete
+    	CohortsRemoved PlantOnly
+
+
 >>---- PRESCRIPTION_1 ---------------------------------------
 Prescription MaxAgeClearcut
     StandRanking 	MaxCohortAge
@@ -88,6 +97,7 @@ Prescription    OakPatchCutting
 >> 	---------   	------------   		------------   	---------- 	--------
 	1		MaxAgeClearcut			5%	0		45
 	1		MaxAgeClearcut			10%	50		100
+	1		Salvage				25%
 	3		AspenClearcut			5%
 	3		SelectiveNorthernHardwood	10%	20		75
 	2		OakPatchCutting			30%
