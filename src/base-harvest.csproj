@@ -7,7 +7,7 @@
     <AssemblyCompany>Landis-II-Foundation</AssemblyCompany>
     <AssemblyProduct>Landis.Extension.BaseHarvest-v4</AssemblyProduct>
     <AssemblyCopyright>Landis-II-Foundation</AssemblyCopyright>
-    <AssemblyVersion>5.0</AssemblyVersion>
+    <AssemblyVersion>5.1</AssemblyVersion>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest</RepositoryUrl>
@@ -18,11 +18,11 @@
     <Authors>Landis-II-Foundation</Authors>
     <Product>Landis.Extension.BaseHarvest-v5</Product>
     <Copyright>Landis-II-Foundation</Copyright>
-    <Version>5.0</Version>
+    <Version>5.1</Version>
     <PackageTags>LANDIS-II;Landis;Extension;Base Harvest</PackageTags>
     <Description></Description>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <FileVersion>7.0.0.0</FileVersion>
+    <FileVersion>5.1.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
