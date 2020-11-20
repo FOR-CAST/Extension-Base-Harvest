@@ -1,52 +1,48 @@
-# What is the NECN Extension?
+# What is the Base Harvest Extension?
 
-The Net Ecosystem Carbon & Nitrogen (NECN) Succession extension implements succession with full accounting of above and below ground carbon and nitrogen. Aboveground biomass generally follows the behavior of previous Biomass Succession extensions with cohorts that have biomass (g m-2). In addition, below ground processing of Carbon and Nitrogen is simulated following the logic of the Century nutrient cycling model (v4.0). 
+The Base Harvest extension simulates logging and other forest management activities. This extension generally follows the behavior of the harvest module as described in Gustafson et al. (2000) although we extensive modification to improve flexibility and detail.
 
 # Features
 
-- [x] Estimate Net Ecosystem Exchange.
-- [x] Estimate Actual and Potential Evapotranspiration, Climatic Water Deficit, and Available Soil Water.
-- [x] Estimate smoke emissions from wildfires and prescribed fires.
-- [x] Species parameters input as CSV delimited files.
-- [x] Estimate Soil Organic Carbon, Soil Nitrogen, Nitrogen fluxes
+- [x] Allows multiple harvest management zones.
+- [x] Unlimited User defined prescriptions.
+- [x] Multiple stand ranking algorithms.
+- [x] Species and age specific harvesting allowed.
 
 # Release Notes
 
-- Latest official release: Version 6.4.1 — May 2020
-- [View User Guide](https://github.com/LANDIS-II-Foundation/Extension-NECN-Succession/blob/master/docs/LANDIS-II%20Net%20Ecosystem%20CN%20Succession%20v6.4%20User%20Guide.pdf).
-- [View User Guide for Climate Library](https://github.com/LANDIS-II-Foundation/Library-Climate/blob/master/docs/LANDIS-II%20Climate%20Library%20v4.1%20User%20Guide.pdf)
-- Full release details found in the User Guide and on GitHub.
+- Latest official release: Version 5.1 â€” October 2019
+- [View User Guide](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/docs/LANDIS-II%20Base%20Harvest%20v5.0%20User%20Guide.pdf).
 
 # Requirements
 
-To use NECN, you need:
+To use Base Harvest, you need:
 
 - The [LANDIS-II model v7.0](http://www.landis-ii.org/install) installed on your computer.
 - Example files (see below)
 
 # Download
 
-Version 6.4.1 can be downloaded [here](https://github.com/LANDIS-II-Foundation/Extension-NECN-Succession/blob/master/deploy/past-releases/LANDIS-II-V7%20NECN%20Succession%206.4.1-setup.exe). To install it on your computer, launch the installer.
+Version 5.1 can be downloaded [here](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/deploy/installer/LANDIS-II-V7%20Base%20Harvest%205.1-setup.exe). To install it on your computer, launch the installer.
 
 # Citation
 
-Scheller, R.M., D. Hua, P.V. Bolstad, R. Birdsey, D.J. Mladenoff. 2011. The effects of forest harvest intensity in combination with wind disturbance on carbon dynamics in a Lake States mesic landscape. Ecological Modelling 222: 144-153.
+Gustafson, E. J.; Shifley, S. R.; Mladenoff, D. J.; Nimerfro, K. K., and He, H. S. Spatial simulation of forest succession and timber harvesting using LANDIS. Canadian Journal of Forest Research. 2000; 30:32-43.
 
 # Example Files
 
 LANDIS-II requires a global parameter file for your scenario, and separate parameter files for each extension.
 
-Example files are [here](https://github.com/LANDIS-II-Foundation/Extension-NECN-Succession/tree/master/testing/Core7-NECN6.4/ExampleNECNv64.zip).
+Example files are [here](https://github.com/LANDIS-II-Foundation/NEEDS_UPDATE.zip).
 
 # Support
 
-If you have a question, please contact Robert Scheller at rschell@ncsu. 
+If you have a question, please contact Eric Gustafson at eric.gustafson@usda.gov 
 You can also ask for help in the [LANDIS-II users group](http://www.landis-ii.org/users).
 
-If you come across any issue or suspected bug, please post about it in the [issue section of the Github repository](https://github.com/LANDIS-II-Foundation/Extension-NECN-Succession/issues).
+If you come across any issue or suspected bug, please post about it in the [issue section of the Github repository](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/issues).
 
-# Author
+# Authors
 
 [The LANDIS-II Foundation](http://www.landis-ii.org)
 
-Mail : rschell@ncsu.edu
