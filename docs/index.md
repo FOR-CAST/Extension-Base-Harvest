@@ -25,24 +25,26 @@ To use Base Harvest, you need:
 
 Version 5.1 can be downloaded [here](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/deploy/installer/LANDIS-II-V7%20Base%20Harvest%205.1-setup.exe). To install it on your computer, launch the installer.
 
-# Citation
-
-Gustafson, E. J.; Shifley, S. R.; Mladenoff, D. J.; Nimerfro, K. K., and He, H. S. Spatial simulation of forest succession and timber harvesting using LANDIS. Canadian Journal of Forest Research. 2000; 30:32-43.
-
 # Example Files
 
 LANDIS-II requires a global parameter file for your scenario, and separate parameter files for each extension.
 
-Example files are [here](https://github.com/LANDIS-II-Foundation/NEEDS_UPDATE.zip).
+Example files are [here](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/testings/Core7-BaseHarvest4.0/Base-harvest-example.zip).
+
+# Citation
+
+Gustafson, E. J.; Shifley, S. R.; Mladenoff, D. J.; Nimerfro, K. K., and He, H. S. Spatial simulation of forest succession and timber harvesting using LANDIS. Canadian Journal of Forest Research. 2000; 30:32-43.
 
 # Support
 
-If you have a question, please contact Eric Gustafson at eric.gustafson@usda.gov 
+If you have a question, please contact Eric Gustafson.
 You can also ask for help in the [LANDIS-II users group](http://www.landis-ii.org/users).
 
-If you come across any issue or suspected bug, please post about it in the [issue section of the Github repository](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/issues).
+If you come across any issue or suspected bug, please post about it in the [issue section of the Github repository](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/issues)(GitID required).
 
 # Authors
 
 [The LANDIS-II Foundation](http://www.landis-ii.org)
+
+Email: eric.gustafson@usda.gov 
 
