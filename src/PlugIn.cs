@@ -22,11 +22,11 @@ namespace Landis.Extension.BaseHarvest
         private static int event_id;
         private static double current_rank;     //need a global to keep track of the current stand's rank.  just for log file.
 
-        int[] totalSites;
-        int[] totalDamagedSites;
-        int[,] totalSpeciesCohorts;
+        public static int[] totalSites;
+        public static int[] totalDamagedSites;
+        public static int[,] totalSpeciesCohorts;
         // 2015-09-14 LCB Track prescriptions as they are reported in summary log so we don't duplicate
-        bool[] prescriptionReported;
+        public static bool[] prescriptionReported;
 
         private IInputParameters parameters;
         private static ICore modelCore;
@@ -54,6 +54,10 @@ namespace Landis.Extension.BaseHarvest
         {
             modelCore = mCore;
             Landis.Library.HarvestManagement.Main.InitializeLib(modelCore);
+
+            HarvestExtensionMain.RepeatStandHarvestedEvent += RepeatStandHarvested;
+            HarvestExtensionMain.RepeatPrescriptionFinishedEvent += RepeatPrescriptionHarvested;
+
             InputParametersParser parser = new InputParametersParser(mCore.Species);
             parameters = Landis.Data.Load<IInputParameters>(dataFile, parser);
             if (parser.RoundedRepeatIntervals.Count > 0)
@@ -117,10 +121,9 @@ namespace Landis.Extension.BaseHarvest
 
             //harvest each management area in the list
             foreach (ManagementArea mgmtArea in managementAreas) {
-
                 totalSites = new int[Prescription.Count];
                 totalDamagedSites = new int[Prescription.Count];
-                totalSpeciesCohorts = new int[Prescription.Count, PlugIn.ModelCore.Species.Count];
+                totalSpeciesCohorts = new int[Prescription.Count, modelCore.Species.Count];
                 prescriptionReported = new bool[Prescription.Count];
 
                 mgmtArea.HarvestStands();
@@ -158,37 +161,32 @@ namespace Landis.Extension.BaseHarvest
 
                 foreach (AppliedPrescription aprescription in mgmtArea.Prescriptions)
                 {
-                    Prescription prescription = aprescription.Prescription;
-                    //string species_string = "";
-                    double[] species_count = new double[modelCore.Species.Count];
-                    foreach (ISpecies species in PlugIn.ModelCore.Species)
-                        species_count[species.Index] += totalSpeciesCohorts[prescription.Number, species.Index];
-
-                    if (totalSites[prescription.Number] > 0 && prescriptionReported[prescription.Number] != true)
-                    {
-                        //summaryLog.WriteLine("{0},{1},{2},{3}{4}",
-                        //    PlugIn.ModelCore.CurrentTime,
-                        //    mgmtArea.MapCode,
-                        //    prescription.Name,
-                        //    totalDamagedSites[prescription.Number],
-                        //    species_string);
-                        summaryLog.Clear();
-                        SummaryLog sl = new SummaryLog();
-                        sl.Time = modelCore.CurrentTime;
-                        sl.ManagementArea = mgmtArea.MapCode;
-                        sl.Prescription = prescription.Name;
-                        sl.HarvestedSites = totalDamagedSites[prescription.Number];
-                        sl.CohortsHarvested_ = species_count;
-                        summaryLog.AddObject(sl);
-                        summaryLog.WriteToFile();
-                        
-                        prescriptionReported[prescription.Number] = true;
-                    }
+                    if (modelCore.CurrentTime <= aprescription.EndTime)
+                        WriteSummaryLogEntry(mgmtArea, aprescription);
                 }
             }
             prescriptionMaps.WriteMap(PlugIn.ModelCore.CurrentTime);
 
 
+        }
+
+        //---------------------------------------------------------------------
+
+        // Event handler when a stand has been harvested in a repeat step
+        public static void RepeatStandHarvested(object sender,
+                                         RepeatHarvestStandHarvestedEvent.Args eventArgs)
+        {
+            WriteLogEntry(eventArgs.MgmtArea, eventArgs.Stand, eventArgs.RepeatNumber);
+        }
+
+        //---------------------------------------------------------------------
+
+        // Event handler when a prescription has finished a repeat event
+        public static void RepeatPrescriptionHarvested(object sender,
+                                         RepeatHarvestPrescriptionFinishedEvent.Args eventArgs)
+        {
+            WriteSummaryLogEntry(eventArgs.MgmtArea, eventArgs.Prescription, eventArgs.RepeatNumber,
+                eventArgs.LastHarvest);
         }
 
         //---------------------------------------------------------------------
@@ -216,7 +214,7 @@ namespace Landis.Extension.BaseHarvest
         }
 
         //---------------------------------------------------------------------
-        public void WriteLogEntry(ManagementArea mgmtArea, Stand stand)
+        public static void WriteLogEntry(ManagementArea mgmtArea, Stand stand, uint repeatNumber = 0)
         {
             int damagedSites = 0;
             int cohortsDamaged = 0;
@@ -259,25 +257,32 @@ namespace Landis.Extension.BaseHarvest
             stand.ClearDamageTable();
 
             //write to log file:
-                //current time
-                //management area's map code
-                //the prescription that caused this harvest
-                //stand's map code
-                //stand's age
-                //stand's current rank
-                //total sites in the stand
-                //damaged sites from this stand
-                //cohorts killed in this stand, by this harvest
+            //current time
+            //management area's map code
+            //the prescription that caused this harvest
+            //stand's map code
+            //stand's age
+            //stand's current rank
+            //total sites in the stand
+            //damaged sites from this stand
+            //cohorts killed in this stand, by this harvest
             //and only record stands where a site has been damaged
             //log.WriteLine("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
             //              PlugIn.ModelCore.CurrentTime, mgmtArea.MapCode, stand.PrescriptionName, stand.MapCode, stand.EventId,
             //              stand.Age, stand.HarvestedRank, stand.SiteCount, damagedSites, cohortsDamaged, species_count);
 
+            string name = stand.PrescriptionName;
+
+            if (repeatNumber != 0)
+            {
+                name = name + "(" + repeatNumber + ")";
+            }
+
             eventLog.Clear();
             EventsLog el = new EventsLog();
             el.Time = modelCore.CurrentTime;
             el.ManagementArea = mgmtArea.MapCode;
-            el.Prescription = stand.PrescriptionName;
+            el.Prescription = name;
             el.Stand = stand.MapCode;
             el.EventID = stand.EventId;
             el.StandAge = stand.Age;
@@ -289,9 +294,57 @@ namespace Landis.Extension.BaseHarvest
 
             eventLog.AddObject(el);
             eventLog.WriteToFile();
+        }
 
+        public static void WriteSummaryLogEntry(ManagementArea mgmtArea, AppliedPrescription prescription, uint repeatNumber = 0, bool lastHarvest = false)
+        {
+            //string species_string = "";
+            double[] species_count = new double[modelCore.Species.Count];
+            foreach (ISpecies species in PlugIn.ModelCore.Species)
+                species_count[species.Index] += totalSpeciesCohorts[prescription.Prescription.Number, species.Index];
 
+            if (totalSites[prescription.Prescription.Number] > 0 && prescriptionReported[prescription.Prescription.Number] != true)
+            {
+                string name = prescription.Prescription.Name;
 
+                if (repeatNumber > 0)
+                {
+                    name = name + "(" + repeatNumber + ")";
+                }
+                //summaryLog.WriteLine("{0},{1},{2},{3}{4}",
+                //    PlugIn.ModelCore.CurrentTime,
+                //    mgmtArea.MapCode,
+                //    prescription.Name,
+                //    totalDamagedSites[prescription.Number],
+                //    species_string);
+                summaryLog.Clear();
+                SummaryLog sl = new SummaryLog();
+                sl.Time = modelCore.CurrentTime;
+                sl.ManagementArea = mgmtArea.MapCode;
+                sl.Prescription = name;
+                sl.HarvestedSites = totalDamagedSites[prescription.Prescription.Number];
+                sl.CohortsHarvested_ = species_count;
+                summaryLog.AddObject(sl);
+                summaryLog.WriteToFile();
+
+                // Do not mark this as recorded until the final summary is logged. Because repeat steps will be
+                // recorded first and then new initiations, mark this as reported once the initiation step is complete
+                if (repeatNumber == 0 || (ModelCore.CurrentTime > prescription.EndTime && lastHarvest))
+                {
+                    prescriptionReported[prescription.Prescription.Number] = true;
+                }
+
+                // Clear the log for the initial harvests
+                if (lastHarvest)
+                {
+                    totalDamagedSites[prescription.Prescription.Number] = 0;
+
+                    foreach (ISpecies species in modelCore.Species)
+                    {
+                        totalSpeciesCohorts[prescription.Prescription.Number, species.Index] = 0;
+                    }
+                }
+            }
         }
 
         //---------------------------------------------------------------------
