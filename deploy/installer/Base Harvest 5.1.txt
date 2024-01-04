@@ -1,9 +1,0 @@
-LandisData   Extension
-
-Name         "Base Harvest"
-Version      "5.1"
-Type         disturbance:harvest
-Assembly     Landis.Extension.BaseHarvest-v5
-Class        Landis.Extension.BaseHarvest.PlugIn
-Description  "Generic Harvesting for all cohorts"
-CoreVersion  7.0
