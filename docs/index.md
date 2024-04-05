@@ -11,8 +11,8 @@ The Base Harvest extension simulates logging and other forest management activit
 
 # Release Notes
 
-- Latest official release: Version 5.1 — October 2019
-- [View User Guide](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/docs/LANDIS-II%20Base%20Harvest%20v5.0%20User%20Guide.pdf).
+- Latest official release: Version 5.2 — April 2024
+- [View User Guide](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/docs/LANDIS-II%20Base%20Harvest%20v5.2%20User%20Guide.pdf).
 
 # Requirements
 
@@ -23,7 +23,7 @@ To use Base Harvest, you need:
 
 # Download
 
-Version 5.1 can be downloaded [here](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/deploy/installer/LANDIS-II-V7%20Base%20Harvest%205.1-setup.exe). To install it on your computer, launch the installer.
+Version 5.2 can be downloaded [here](https://github.com/LANDIS-II-Foundation/Extension-Base-Harvest/blob/master/deploy/installer/LANDIS-II-V7%20Base%20Harvest%205.2-setup.exe). To install it on your computer, launch the installer.
 
 # Example Files
 
