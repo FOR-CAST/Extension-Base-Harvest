@@ -23,6 +23,7 @@
     <Description></Description>
     <PackageReleaseNotes></PackageReleaseNotes>
     <FileVersion>5.1.0.0</FileVersion>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
@@ -56,5 +57,3 @@
   </ItemGroup>
   
 </Project>
-
-
